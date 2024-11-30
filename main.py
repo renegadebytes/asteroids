@@ -4,6 +4,8 @@
 import pygame
 from constants import *
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 def main():
     # initialize pygame
@@ -27,9 +29,18 @@ def main():
     print(f"Screen height: {SCREEN_HEIGHT}")
     print(f"")
 
-    # Creating groups for updatable and drawable objects
+    # Create groups for game objects
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
+
+    # Add static containers to classes
+    Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable,)
+
+    # Create asteroid field
+    asteroid_field = AsteroidField()
 
     # Adding player to both groups
     updatable.add(player)
